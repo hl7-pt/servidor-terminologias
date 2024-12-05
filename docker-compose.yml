@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  fhir-server:
+#    build: ../hapi-fhir-jpaserver-starter/
+  #  image: hapi-fhir-jpaserver-start
+    container_name: terminology-server
+#    image: hapiproject/hapi:v6.8.3
+    image: hapiproject/hapi:latest
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    volumes:
+     - ./hapi_config:/data/hapi
+     - ./web:/custom
+     - ./apps:/apps
+    environment:
+     SPRING_CONFIG_LOCATION: 'file:///data/hapi/application.yml'
+#     spring.main.allow-circular-references: 'true'
+      #      hapi.fhir.default_encoding: "json"
+    depends_on:
+        - db
+  db:
+#    image: postgres:latest
+    image: postgres:13-alpine
+
+    restart: always
+    container_name: terminology-database
+      #command: mydbcharacter-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci  --lower_case_table_names=1
+    volumes:
+    - ./data/db:/var/lib/postgresql/data
+#    - ./mariadbconf:/etc/mysql/conf.d
+    environment:
+    - POSTGRES_DB=hapi
+    - POSTGRES_ROOT_PASSWORD=admin
+    - POSTGRES_USER=admin
+    - POSTGRES_PASSWORD=admin
+#    ports:
+#    - "5432:5432"
+
+#  ember-term:
+#    image: jkiddo/ember:latest
+#    environment:
+#      - location=https://hl7-pt.github.io/terminologias/package.tgz
+#      - serverBase=http://fhir-server:8080/fhir
+#      - usePUT=true

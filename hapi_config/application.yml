@@ -1,0 +1,165 @@
+#server:
+#  servlet:
+#    context-path: /terminologias
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,prometheus"
+spring:
+  main:
+    allow-circular-references: true
+    #allow-bean-definition-overriding: true
+  flyway:
+    enabled: false
+    check-location: false
+    baselineOnMigrate: true
+
+  datasource:
+    url: 'jdbc:postgresql://db:5432/hapi'
+    username: admin
+    password: admin
+    driverClassName: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate.dialect: ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect
+#      hibernate.search.enabled: false
+      #datasource:
+      #url: 'jdbc:mysql://mariadb:3308/hapi'
+      #username: admin
+      #password: admin
+      #driverClassName: com.mysql.cj.jdbc.Driver
+#    driverClassName: com.mysql.jdbc.Driver
+
+    max-active: 20
+###    These settings will enable fulltext search with lucene
+ #   hibernate.search.enabled: true
+ #   hibernate.search.backend.type: lucene
+ #   hibernate.search.backend.analysis.configurer: ca.uhn.fhir.jpa.search.HapiLuceneAnalysisConfigurer
+ #   hibernate.search.backend.directory.type: local-filesystem
+ #   hibernate.search.backend.directory.root: target/lucenefiles
+ #   hibernate.search.backend.lucene_version: lucene_current
+
+  batch:
+    job:
+      enabled: false
+
+hapi:
+  fhir:
+    cr:
+      enabled: false
+      caregaps:
+        reporter: "default"
+        section_author: "default"
+      cql:
+        use_embedded_libraries: true
+        compiler:
+          ### These are low-level compiler options.
+          ### They are not typically needed by most users.
+          # validate_units: true
+          # verify_only: false
+          # compatibility_level: "1.5"
+          error_level: Info
+          signature_level: All
+          # analyze_data_requirements: false
+          # collapse_data_requirements: false
+          # translator_format: JSON
+          # enable_date_range_optimization: true
+          enable_annotations: true
+          enable_locators: true
+          enable_results_type: true
+          enable_detailed_errors: true
+          # disable_list_traversal: false
+          # disable_list_demotion: false
+          # enable_interval_demotion: false
+          # enable_interval_promotion: false
+          # disable_method_invocation: false
+          # require_from_keyword: false
+          # disable_default_model_info_load: false
+
+    openapi_enabled: true
+    fhir_version: R5
+   # server_address: https://terminologias.hl7.pt/fhir
+    server_address: http://localhost:8080
+    supported_resource_types:
+      - CodeSystem
+      - ValueSet
+      - StructureDefinition
+    allowed_bundle_types: COLLECTION,DOCUMENT,MESSAGE,TRANSACTION,TRANSACTIONRESPONSE,BATCH,BATCHRESPONSE,HISTORY,SEARCHSET
+    allow_cascading_deletes: true
+    allow_contains_searches: true
+#    allow_external_references: true
+    allow_multiple_delete: true
+    allow_override_default_search_params: true
+    auto_create_placeholder_reference_targets: false
+    #    cql_enabled: true
+    ips_enabled: false
+ #   advanced_lucene_indexing: false
+    custom_content_path: /custom
+    app_content_path: /apps
+
+    #  - hapi.fhir.custom_content_path=/custom
+    #  - hapi.fhir.app_content_path=/apps
+    #default_encoding: JSON
+    #default_pretty_print: true
+    #    default_page_size: 20
+    #    delete_expunge_enabled: true
+ #   enable_repository_validating_interceptor: false
+    enable_index_missing_fields: true
+    enable_index_of_type: true
+    enable_index_contained_resource: true
+#    implementationguides:
+#      terminologias:
+#        packageUrl: https://hl7-pt.github.io/terminologias/package.tgz
+#        name: hl7.fhir.pt.terminology
+#        version: 1.0.0
+
+#    enable_repository_validating_interceptor: true
+    use_apache_address_strategy: true
+    use_apache_address_strategy_https: true
+
+
+  #  allow_contains_searches: true
+    allow_external_references: true
+    default_encoding: JSON
+    default_pretty_print: true
+    default_page_size: 10
+    client_id_strategy: ALPHANUMERIC
+  #  filter_search_enabled: true
+    narrative_enabled: true
+    cors:
+      allow_Credentials: true
+      # These are allowed_origin patterns, see: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/cors/CorsConfiguration.html#setAllowedOriginPatterns-java.util.List-
+      allowed_origin:
+        - '*'
+
+    # Search coordinator thread pool sizes
+    search-coord-core-pool-size: 20
+    search-coord-max-pool-size: 100
+    search-coord-queue-capacity: 200
+    tester:
+      home:
+        name: Local Tester
+#        server_address: "http://localhost/fhir"
+        server_address: "https://terminologias.hl7.pt/fhir"
+        refuse_to_fetch_third_party_urls: false
+        fhir_version: R5
+
+      global:
+        name: Global Tester
+        server_address: "https://hapi.fhir.org/baseR5"
+        refuse_to_fetch_third_party_urls: false
+        fhir_version: R5
+
+#    subscription:
+#        resthook_enabled: false
+    subscription:
+      resthook_enabled: false
+      websocket_enabled: false
+#      email:
+#        from: some@test.com
+#        host: google.com
+#        port: 8080
+#        username: jfca
+#        password: jfca
