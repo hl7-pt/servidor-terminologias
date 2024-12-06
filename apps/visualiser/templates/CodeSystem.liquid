@@ -19,12 +19,14 @@
   <div class="container rcorners mpd">
   {% comment %}print the name - current name[0], should be all names{% endcomment %}
   <h4>
-    {{ mpd.id }}
+    {{ mpd.title }}
   </h4>
-  <p>
-    Nome: {{mpd.title}}
-  </p>
+  <p style="color: gray; font-size: 10px;"> {{mpd.description}}</p>
+  <hr>
+  <p>ID: {{mpd.id}}</p>
   <p>Versão: {{mpd.version}}</p>
+  <p>Autor: {{mpd.author[0].name}}</p>
+
 </div>
 <hr>
 
