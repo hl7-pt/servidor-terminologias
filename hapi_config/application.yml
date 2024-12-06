@@ -86,6 +86,7 @@ hapi:
       - CodeSystem
       - ValueSet
       - StructureDefinition
+      - ConceptMap
     allowed_bundle_types: COLLECTION,DOCUMENT,MESSAGE,TRANSACTION,TRANSACTIONRESPONSE,BATCH,BATCHRESPONSE,HISTORY,SEARCHSET
     allow_cascading_deletes: true
     allow_contains_searches: true
