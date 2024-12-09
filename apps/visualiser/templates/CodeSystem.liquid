@@ -51,7 +51,7 @@
       <td>{{element.code}}</td>
       <td>{{element.display}}</td>
       <td>{{element.definition}}</td>
-      {% if {{element.property}} %}
+      {% if element.property %}
         <td>
         {% for prop in element.property %}
           {{prop.code}}||{{prop.valueDecimal}}<br>
