@@ -35,10 +35,10 @@
 
 
 
-      urlsplit=url.split('/'+resourceType+'/');
       console.log(urlsplit)
       const match = url.match(/fhir\/(.*?)\//);
       const resourceType = match ? match[1] : null;
+      urlsplit=url.split('/'+resourceType+'/');
 
     console.log(result); // Output: ConceptMap
       if (urlsplit[1]) {
