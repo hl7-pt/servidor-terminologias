@@ -30,7 +30,7 @@
 
   <p><b>Propriedades: </b></p>
   {% for prop in mpd.property %}
-    <p><br>{{prop.code}}</p> -> {{prop.description}}  </a>
+    <p><b>{{prop.code}}</b></p> -> {{prop.description}}  </a>
     <br>
   {% endfor %}
 
@@ -59,7 +59,7 @@
       {% if element.property %}
         <td>
         {% for prop in element.property %}
-          {{prop.code}}||{{prop.valueDecimal}}<br>
+          <a>{{prop.code}}||{{prop.valueDecimal}}<br></a>
         {% endfor %}
       {% endif %}
 
