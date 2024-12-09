@@ -37,12 +37,17 @@
 
       urlsplit=url.split('/'+resourceType+'/');
       console.log(urlsplit)
+      const match = url.match(/fhir\/(.*?)\//);
+      const resourceType = match ? match[1] : null;
+
+    console.log(result); // Output: ConceptMap
       if (urlsplit[1]) {
         mpdid=urlsplit[1];
        
       url=urlsplit[0]+'/'+resourceType+'?_id='+mpdid+'&_format=json';
       }
-      
+      const templateFile = resourceType+".liquid";
+
       const result = document.querySelector('#result')
       const engine = new liquidjs.Liquid()
       $.get("./templates/"+templateFile, function(ltemplate) {
