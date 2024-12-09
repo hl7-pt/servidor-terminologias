@@ -6,7 +6,7 @@ var appBaseUrl = "";
 function initializeDataTable() {
   if (!$.fn.dataTable.isDataTable('#prod-table')) {
       // Initialize only if not already initialized
-      $('#prod-table').DataTable({
+      t=$('#prod-table').DataTable({
           language: {
               search: "Procurar:" // Replace "Search" with the desired text
           }
