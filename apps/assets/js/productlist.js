@@ -146,7 +146,7 @@ async function processData(data, baseurl) {
 
       try {
         current_row.push(
-          '<a target="_blank" href="'+ baseurl + '/ConcetMap/' + data[i].id + '">'+data[i].id+'</a> <br>' 
+          '<a target="_blank" href="'+ baseurl + '/ConceptMap/' + data[i].id + '">'+data[i].id+'</a> <br>' 
         )
       //  current_row.push(data[i].id);
       } catch (error) {
