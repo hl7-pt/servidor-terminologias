@@ -47,8 +47,8 @@
   {% for elements in mpd.group[0].element %}
     <tr>
       <td>{{elements.code}}</td>
-      <td>{{elements.target.code}}</td>
-      <td>{{elements.target.relationship}}</td>
+      <td>{{elements.target[0].code}}</td>
+      <td>{{elements.target[0].relationship}}</td>
   </tr>
   {% endfor %}
   </tbody>
