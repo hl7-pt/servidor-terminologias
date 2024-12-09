@@ -16,10 +16,14 @@ function initializeDataTable() {
     language: {
       search: "Procurar:", // Replace "Search" with "Procurar" or any other text
       info: 'A mostrar _START_ a _END_ de _TOTAL_ _ENTRIES_',
+      infoEmpty: 'Sem conceitos para mostrar',
+      infoFiltered: ' - friltrado de _MAX_ records',
+
+
       entries: {
         _: 'Conceitos',
         1: 'Conceito'
-    },
+    }
   
     }
   });
