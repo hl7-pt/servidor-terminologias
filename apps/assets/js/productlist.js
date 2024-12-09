@@ -169,9 +169,10 @@ async function processData(data, baseurl) {
       console.log(resource.group[0].length);
       console.log(resource.group);
       console.log(resource.group[0]);
+      console.log(resource.group[0].element.length);
 
       try {
-        current_row.push ( resource.group[0].length );
+        current_row.push ( resource.group[0].element.length );
       } catch (error) {
         current_row.push(error);
       }
