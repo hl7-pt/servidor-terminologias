@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     .then((response) => response.json())
     .then((config) => {
       var baseurl = config.server_url;
-      var url = baseurl + '/CodeSystem?_format=json&_count=20000';
+      var url = baseurl + '/CodeSystem?_revinclude=ConceptMap:source-group-system?_format=json&_count=20000';
       console.log(url);
       var productFormatType = document.getElementById('productFormatType');
 
@@ -93,7 +93,7 @@ async function processData(data, baseurl) {
 
     var resource = data[i];
     if (resource ) {
-    //  console.log(resource);
+      console.log(resource);
 
       var current_row = [];
 
