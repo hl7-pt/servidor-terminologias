@@ -11,8 +11,11 @@ function initializeDataTable() {
   //   }
   // }
   if ($.fn.dataTable.isDataTable('#prod-table')) {
-    t = $('#prod-table').DataTable();
-  } else {
+    t = $('#prod-table').DataTable({
+      language: {
+          search: "Procurar:" // Replace "Search" with "Find" or any word you want);
+      }
+  })} else {
     // The table has not been initialized as DataTable yet
     // You can initialize it here if you want to
   }
