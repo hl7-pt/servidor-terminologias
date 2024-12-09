@@ -34,18 +34,29 @@
     <thead>
         <tr>
             <th>Código</th>
-            <th>Titulo</th>
+            <th>Título</th>
             <th>Descrição</th>
+            <th>Propriedades</th>
+
         </tr>
     </thead>
     <tbody>
 
-  {% comment %}and MPD identifiers{% endcomment %}
-  {% for elements in mpd.concept %}
+  {% for element in mpd.concept %}
     <tr>
-      <td>{{elements.code}}</td>
-      <td>{{elements.display}}</td>
-      <td>{{elements.definition}}</td>
+      <td>{{element.code}}</td>
+      <td>{{element.display}}</td>
+      <td>{{element.definition}}</td>
+      {% if {{element.property}} %}
+        <td>
+        {% for prop in element.property %}
+          {{prop.code}}||{{prop.valueDecimal}}<br>
+        {% endfor %}
+      {% endif %}
+
+          </td>
+
+
   </tr>
   {% endfor %}
   </tbody>
