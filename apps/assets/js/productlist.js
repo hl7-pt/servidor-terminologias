@@ -98,6 +98,13 @@ async function processData(data, baseurl) {
       var current_row = [];
 
       try {
+        current_row.push(resource["resourceType"])
+      //  current_row.push(data[i].id);
+      } catch (error) {
+        current_row.push(error);
+      }
+      
+      try {
         current_row.push(
           '<a target="_blank" href="'+ baseurl + '/CodeSystem/' + data[i].id + '">'+data[i].id+'</a> <br>' 
         )
@@ -143,6 +150,13 @@ async function processData(data, baseurl) {
       console.log(resource);
 
       var current_row = [];
+
+      try {
+        current_row.push(resource["resourceType"])
+      //  current_row.push(data[i].id);
+      } catch (error) {
+        current_row.push(error);
+      }
 
       try {
         current_row.push(
