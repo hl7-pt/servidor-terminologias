@@ -20,7 +20,7 @@ function initializeDataTable() {
         1: 'Conceito'
     },
     language: {
-      info: 'A mostrar página _PAGE_ of _PAGES_'
+      info: 'Showinsssg _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_'
   }
     }
   });
