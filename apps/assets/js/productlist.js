@@ -92,7 +92,7 @@ async function processData(data, baseurl) {
     console.log(data[i].id);
 
     var resource = data[i];
-    if (resource ) {
+    if (resource["resourceType"]=="CodeSystem" ) {
       console.log(resource);
 
       var current_row = [];
@@ -129,7 +129,54 @@ async function processData(data, baseurl) {
 
       try {
         current_row.push(
-          '<a target="_blank" href="./visualiser/CodeSystem.html?url=' + baseurl + '/CodeSystem/' + data[i].id + '">Ver</a> <br>' )
+          '<a target="_blank" href="./visualiser/viz-index.html?url=' + baseurl + '/CodeSystem/' + data[i].id + '">Ver</a> <br>' )
+        } catch (error) {
+          current_row.push(error);
+        }
+      t.row.add(current_row);
+
+      console.log(current_row);
+      // Update progress indicator
+      progressIndicator.innerText = 'Processing product ' + (i + 1) + ' of ' + totalCount + '...';
+    }
+    if (resource["resourceType"]=="ConceptMap" ) {
+      console.log(resource);
+
+      var current_row = [];
+
+      try {
+        current_row.push(
+          '<a target="_blank" href="'+ baseurl + '/ConcetMap/' + data[i].id + '">'+data[i].id+'</a> <br>' 
+        )
+      //  current_row.push(data[i].id);
+      } catch (error) {
+        current_row.push(error);
+      }
+
+      try {
+        current_row.push('<b>' + resource.title + '</b>');
+      } catch (error) {
+        current_row.push(error);
+      }
+
+
+      try {
+        current_row.push( "" );
+      } catch (error) {
+        current_row.push(error);
+      }
+
+      try {
+        current_row.push ( resource.group[0].length );
+      } catch (error) {
+        current_row.push(error);
+      }
+
+
+
+      try {
+        current_row.push(
+          '<a target="_blank" href="./visualiser/viz-index.html?url=' + baseurl + '/ConceptMap/' + data[i].id + '">Ver</a> <br>' )
         } catch (error) {
           current_row.push(error);
         }
