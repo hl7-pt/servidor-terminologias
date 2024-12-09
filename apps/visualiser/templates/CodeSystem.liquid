@@ -61,7 +61,7 @@
       {% if element.property %}
         <td>
         {% for prop in element.property %}
-          <a>{{prop.code}}||{{prop.valueDecimal}}<br></a>
+          <a><b>{{prop.code}}</b> {{prop.valueDecimal}}<br></a>
         {% endfor %}
         {% else  %}
         <td>-</td>
