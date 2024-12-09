@@ -14,7 +14,14 @@ function initializeDataTable() {
   // Initialize the DataTable with the desired configuration
   t = $('#prod-table').DataTable({
     language: {
-      search: "Procurar:" // Replace "Search" with "Procurar" or any other text
+      search: "Procurar:", // Replace "Search" with "Procurar" or any other text
+      entries: {
+        _: 'Conceitos',
+        1: 'Conceito'
+    },
+    language: {
+      info: 'A mostrar página _PAGE_ of _PAGES_'
+  }
     }
   });
 }
