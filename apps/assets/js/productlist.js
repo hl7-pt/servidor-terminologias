@@ -15,7 +15,7 @@ function initializeDataTable() {
   t = $('#prod-table').DataTable({
     language: {
       search: "Procurar:", // Replace "Search" with "Procurar" or any other text
-      info: 'Showinsssg _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_',
+      info: 'A mostrar _START_ a _END_ de _TOTAL_ _ENTRIES_',
       entries: {
         _: 'Conceitos',
         1: 'Conceito'
