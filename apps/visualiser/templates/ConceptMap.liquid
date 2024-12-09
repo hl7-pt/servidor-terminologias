@@ -44,7 +44,7 @@
     <tbody>
 
   {% comment %}and MPD identifiers{% endcomment %}
-  {% for elements in mpd.group[0].elements %}
+  {% for elements in mpd.group[0].element %}
     <tr>
       <td>{{elements.code}}</td>
       <td>{{elements.target.code}}</td>
