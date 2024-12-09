@@ -4,16 +4,22 @@ var appBaseUrl = "";
 
 // Function to initialize or reinitialize the DataTable
 function initializeDataTable() {
+  // if (dataTableInitialized) {
+  //   // Destroy the DataTable if it has been initialized
+  //   if (t) {
+  //     t.destroy();
+  //   }
+  // }
   if ($.fn.dataTable.isDataTable('#prod-table')) {
     t = $('#prod-table').DataTable({
       language: {
-        search: "Procurar:" // Replace "Search" with "Find" or any word you want);
+          search: "Procurar:" // Replace "Search" with "Find" or any word you want);
       }
-    });
-  } else {
+  })} else {
     // The table has not been initialized as DataTable yet
     // You can initialize it here if you want to
   }
+
 }
 
 
