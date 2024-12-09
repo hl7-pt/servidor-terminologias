@@ -14,12 +14,11 @@ function initializeDataTable() {
   // Initialize the DataTable with the desired configuration
   t = $('#prod-table').DataTable({
     language: {
-      url: "cdn.datatables.net/plug-ins/1.11.5/i18n/Portuguese.json"
 
-/*      search: "Procurar:", // Replace "Search" with "Procurar" or any other text
-      info: 'A mostrar _START_ a _END_ de _TOTAL_ _ENTRIES-TOTAL_',
+     search: "Procurar:", // Replace "Search" with "Procurar" or any other text
+      info: 'A mostrar _START_ a _END_ de _TOTAL_ registos',
       infoEmpty: 'Sem conceitos para mostrar',
-      infoFiltered: ' - friltrado de _MAX_ records',
+      infoFiltered: ' - friltrado de _MAX_ registos',
       lengthMenu:
       'Mostrar <select>' +
       '<option value="10">10</option>' +
@@ -31,7 +30,7 @@ function initializeDataTable() {
       entries: {
         _: 'registos',
         1: 'Registo'
-    }*/
+    }
   
     }
   });
