@@ -29,11 +29,13 @@
   {% if mpd.property %}
 
   <p><b>Propriedades: </b></p>
+  <ul>
   {% for prop in mpd.property %}
-    <p><b>{{prop.code}}:</b>  {{prop.description}}  </p>
+
+    <li><b>{{prop.code}}:</b>  {{prop.description}}  </li>
     
   {% endfor %}
-
+  </ul>
 {% endif %}
 
 </div>
