@@ -154,17 +154,21 @@ async function processData(data, baseurl) {
       }
 
       try {
-        current_row.push('<b>' + resource.title + '</b>');
+        current_row.push('<b>' + resource.name + '</b>');
       } catch (error) {
         current_row.push(error);
       }
 
 
       try {
-        current_row.push( "" );
+        current_row.push( resource.title );
       } catch (error) {
         current_row.push(error);
       }
+      console.log(resource.group[0]);
+      console.log(resource.group[0].length);
+      console.log(resource.group);
+      console.log(resource.group[0]);
 
       try {
         current_row.push ( resource.group[0].length );
