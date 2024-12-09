@@ -15,14 +15,21 @@ function initializeDataTable() {
   t = $('#prod-table').DataTable({
     language: {
       search: "Procurar:", // Replace "Search" with "Procurar" or any other text
-      info: 'A mostrar _START_ a _END_ de _TOTAL_ _ENTRIES_',
+      info: 'A mostrar _START_ a _END_ de _TOTAL_ _ENTRIES-TOTAL_',
       infoEmpty: 'Sem conceitos para mostrar',
       infoFiltered: ' - friltrado de _MAX_ records',
-
-
+      lengthMenu:
+      'Mostrar <select>' +
+      '<option value="10">10</option>' +
+      '<option value="20">20</option>' +
+      '<option value="30">30</option>' +
+      '<option value="40">40</option>' +
+      '<option value="50">50</option>' +
+      '<option value="-1">All</option>' +
+      '</select> registos',
       entries: {
-        _: 'Conceitos',
-        1: 'Conceito'
+        _: 'registos',
+        1: 'Registo'
     }
   
     }
