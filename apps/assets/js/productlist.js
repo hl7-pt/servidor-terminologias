@@ -15,13 +15,12 @@ function initializeDataTable() {
   t = $('#prod-table').DataTable({
     language: {
       search: "Procurar:", // Replace "Search" with "Procurar" or any other text
+      info: 'Showinsssg _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_',
       entries: {
         _: 'Conceitos',
         1: 'Conceito'
     },
-    language: {
-      info: 'Showinsssg _START_ to _END_ of _TOTAL_ _ENTRIES-TOTAL_'
-  }
+  
     }
   });
 }
