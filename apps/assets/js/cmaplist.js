@@ -94,51 +94,7 @@ async function processData(data, baseurl) {
     console.log(data[i].id);
 
     var resource = data[i];
-    if (resource["resourceType"]=="CodeSystem" ) {
-      console.log(resource);
 
-      var current_row = [];
-
-     
-      
-      try {
-        current_row.push(
-          '<a target="_blank" href="'+ baseurl + '/CodeSystem/' + data[i].id + '">'+data[i].id+'</a> <br>' 
-        )
-      //  current_row.push(data[i].id);
-      } catch (error) {
-        current_row.push(error);
-      }
-
-
-
-
-      try {
-        current_row.push(  resource.description );
-      } catch (error) {
-        current_row.push(error);
-      }
-
-      try {
-        current_row.push ( resource.count );
-      } catch (error) {
-        current_row.push(error);
-      }
-
-
-
-      try {
-        current_row.push(
-          '<a target="_blank" href="./visualiser/viz-index.html?url=' + baseurl + '/CodeSystem/' + data[i].id + '">Ver</a> <br>' )
-        } catch (error) {
-          current_row.push(error);
-        }
-      t.row.add(current_row);
-
-      console.log(current_row);
-      // Update progress indicator
-      progressIndicator.innerText = 'Processing product ' + (i + 1) + ' of ' + totalCount + '...';
-    }
     if (resource["resourceType"]=="ConceptMap" ) {
       console.log(resource);
 
@@ -154,11 +110,7 @@ async function processData(data, baseurl) {
         current_row.push(error);
       }
 
-      try {
-        current_row.push('<b>' + resource.name + '</b>');
-      } catch (error) {
-        current_row.push(error);
-      }
+
 
 
       try {
