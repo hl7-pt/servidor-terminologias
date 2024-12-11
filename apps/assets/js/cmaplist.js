@@ -110,11 +110,7 @@ async function processData(data, baseurl) {
         current_row.push(error);
       }
 
-      try {
-        current_row.push('<b>' + resource.title + '</b>');
-      } catch (error) {
-        current_row.push(error);
-      }
+
 
 
       try {
