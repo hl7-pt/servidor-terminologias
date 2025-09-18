@@ -80,8 +80,8 @@ hapi:
 
     openapi_enabled: true
     fhir_version: R5
-   # server_address: https://terminologias.hl7.pt/fhir
-    server_address: http://localhost:8080
+    server_address: https://terminologias.hl7.pt/fhir
+#    server_address: http://localhost:8080
     supported_resource_types:
       - CodeSystem
       - ValueSet
