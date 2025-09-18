@@ -24,7 +24,7 @@
 
 
 <body>
-<!--#include virtual="/web/apps/header.html" -->
+    <!--#include virtual="/web/apps/header.html" -->
 
 
     <!-- Static Modal -->
@@ -58,12 +58,14 @@
                 <div class="table-responsive" style="padding: 38px;">
                     <table class="table display" id="prod-table" style="width: 100%">
                         <thead>
-                            <tr>                          
-                                <th>ID</th>
+                            <tr>
+                                <th>Visualizador</th>
                                 <th>Nome</th>
+                                <th>Versão</th>
+
                                 <th>Descrição</th>
                                 <th>Total códigos</th>
-                                <th>Visualizador</th>
+                                <th>JSON</th>
 
                             </tr>
                         </thead>
@@ -99,25 +101,25 @@
                 dom: 'frtlip',
                 pageLength: 100,
                 lengthMenu: [0, 5, 10, 20, 50, 100, 200, 500],
-                columns: [{ width: "10%" }, { width: "10%" }, { width: "20%" }, { width: "4%" },{ width: "6%" }]
+                columns: [{ width: "10%" }, { width: "10%" }, { width: "20%" }, { width: "4%" }, { width: "6%" }]
             });
         });
     </script>
 
-<script>
-    $(function () {
-      // Load the header
-      $("#header").load("header.html", function () {
-        // Once the header is loaded, you can modify it.
-        $("#header-title").text("Main Page Title");
+    <script>
+        $(function () {
+            // Load the header
+            $("#header").load("header.html", function () {
+                // Once the header is loaded, you can modify it.
+                $("#header-title").text("Main Page Title");
 
-        // You can also dynamically add menu items based on the page.
-        const menu = $("#header-menu");
-        menu.append("<li><a href='/'>Home</a></li>");
-        menu.append("<li><a href='/about'>About Us</a></li>");
-        // ...add other menu items specific to the main page
-      });
-    });
-  </script>
+                // You can also dynamically add menu items based on the page.
+                const menu = $("#header-menu");
+                menu.append("<li><a href='/'>Home</a></li>");
+                menu.append("<li><a href='/about'>About Us</a></li>");
+                // ...add other menu items specific to the main page
+            });
+        });
+    </script>
 
 </body>

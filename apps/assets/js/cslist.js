@@ -15,23 +15,23 @@ function initializeDataTable() {
   t = $('#prod-table').DataTable({
     language: {
 
-     search: "Procurar:", // Replace "Search" with "Procurar" or any other text
+      search: "Procurar:", // Replace "Search" with "Procurar" or any other text
       info: 'A mostrar _START_ a _END_ de _TOTAL_ registos',
       infoEmpty: 'Sem conceitos para mostrar',
       infoFiltered: ' - friltrado de _MAX_ registos',
       lengthMenu:
-      'Mostrar <select>' +
-      '<option value="10">10</option>' +
-      '<option value="20">20</option>' +
-      '<option value="30">30</option>' +
-      '<option value="40">40</option>' +
-      '<option value="50">50</option>' +
-      '</select> registos',
+        'Mostrar <select>' +
+        '<option value="10">10</option>' +
+        '<option value="20">20</option>' +
+        '<option value="30">30</option>' +
+        '<option value="40">40</option>' +
+        '<option value="50">50</option>' +
+        '</select> registos',
       entries: {
         _: 'registos',
         1: 'Registo'
-    }
-  
+      }
+
     }
   });
 }
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     .then((config) => {
       var baseurl = config.server_url;
       //var url = baseurl + '/CodeSystem?_revinclude=ConceptMap:source-group-system&_format=json&_count=20000';
-        var url = baseurl + '/CodeSystem?_format=json&_count=20000';
+      var url = baseurl + '/CodeSystem?_format=json&_count=20000';
 
       console.log(url);
       var productFormatType = document.getElementById('productFormatType');
@@ -56,9 +56,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
       //// Fetch and process the data
-       getDataToProcess(url, false) // Set true for Bundle of Bundles
-         .then(data => processData(data, baseurl))
-         .catch((error) => console.error('Error processing data:', error));
+      getDataToProcess(url, false) // Set true for Bundle of Bundles
+        .then(data => processData(data, baseurl))
+        .catch((error) => console.error('Error processing data:', error));
     })
     .catch((error) => console.error('Error fetching configuration:', error));
 });
@@ -90,25 +90,26 @@ async function processData(data, baseurl) {
   console.log(data);
   for (var i = 0; i < totalCount; i++) {
     //    await new Promise(resolve => setTimeout(resolve, 10));
-    bid= data[i].id;
+    bid = data[i].id;
     console.log(data[i].id);
 
     var resource = data[i];
-    if (resource["resourceType"]=="CodeSystem" ) {
+    if (resource["resourceType"] == "CodeSystem") {
       console.log(resource);
 
       var current_row = [];
 
-     
-      
+
+
       try {
+
         current_row.push(
-          '<a target="_blank" href="'+ baseurl + '/CodeSystem/' + data[i].id + '">'+data[i].id+'</a> <br>' 
-        )
-      //  current_row.push(data[i].id);
+          '<a target="_blank" href="./visualiser/viz-index.html?url=' + baseurl + '/CodeSystem/' + data[i].id + '">Ver</a> <br>')
       } catch (error) {
         current_row.push(error);
       }
+
+
 
       try {
         current_row.push('<b>' + resource.title + '</b>');
@@ -116,15 +117,19 @@ async function processData(data, baseurl) {
         current_row.push(error);
       }
 
-
       try {
-        current_row.push(  resource.description );
+        current_row.push('<b>' + resource.version + '</b>');
+      } catch (error) {
+        current_row.push(error);
+      }
+      try {
+        current_row.push(resource.description);
       } catch (error) {
         current_row.push(error);
       }
 
       try {
-        current_row.push ( resource.count );
+        current_row.push(resource.count);
       } catch (error) {
         current_row.push(error);
       }
@@ -132,28 +137,34 @@ async function processData(data, baseurl) {
 
 
       try {
+
         current_row.push(
-          '<a target="_blank" href="./visualiser/viz-index.html?url=' + baseurl + '/CodeSystem/' + data[i].id + '">Ver</a> <br>' )
-        } catch (error) {
-          current_row.push(error);
-        }
+          '<a target="_blank" href="' + baseurl + '/CodeSystem/' + data[i].id + '">' + data[i].id + '</a> <br>'
+        )
+        //  current_row.push(data[i].id);
+      } catch (error) {
+        current_row.push(error);
+      }
+
+
+
       t.row.add(current_row);
 
       console.log(current_row);
       // Update progress indicator
       progressIndicator.innerText = 'Processing product ' + (i + 1) + ' of ' + totalCount + '...';
     }
-    if (resource["resourceType"]=="ConceptMap" ) {
+    if (resource["resourceType"] == "ConceptMap") {
       console.log(resource);
 
       var current_row = [];
 
-     
+
       try {
         current_row.push(
-          '<a target="_blank" href="'+ baseurl + '/ConceptMap/' + data[i].id + '">'+data[i].id+'</a> <br>' 
+          '<a target="_blank" href="' + baseurl + '/ConceptMap/' + data[i].id + '">' + data[i].id + '</a> <br>'
         )
-      //  current_row.push(data[i].id);
+        //  current_row.push(data[i].id);
       } catch (error) {
         current_row.push(error);
       }
@@ -166,14 +177,14 @@ async function processData(data, baseurl) {
 
 
       try {
-        current_row.push( resource.title );
+        current_row.push(resource.title);
       } catch (error) {
         current_row.push(error);
       }
 
 
       try {
-        current_row.push ( resource.group[0].element.length );
+        current_row.push(resource.group[0].element.length);
       } catch (error) {
         current_row.push(error);
       }
@@ -182,10 +193,10 @@ async function processData(data, baseurl) {
 
       try {
         current_row.push(
-          '<a target="_blank" href="./visualiser/viz-index.html?url=' + baseurl + '/ConceptMap/' + data[i].id + '">Ver</a> <br>' )
-        } catch (error) {
-          current_row.push(error);
-        }
+          '<a target="_blank" href="./visualiser/viz-index.html?url=' + baseurl + '/ConceptMap/' + data[i].id + '">Ver</a> <br>')
+      } catch (error) {
+        current_row.push(error);
+      }
       t.row.add(current_row);
 
       console.log(current_row);
