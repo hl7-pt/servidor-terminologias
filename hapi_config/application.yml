@@ -97,8 +97,11 @@ hapi:
     #    cql_enabled: true
     ips_enabled: false
  #   advanced_lucene_indexing: false
-    custom_content_path: /custom
-    app_content_path: /apps
+    # Use file:// URI format with trailing slash. HAPI strips one trailing slash,
+    # so we need the trailing slash to be preserved for correct URL resolution.
+    # Without it, FileUrlResource resolves relative paths incorrectly.
+    custom_content_path: file:///custom/
+    app_content_path: file:///apps/
 
     #  - hapi.fhir.custom_content_path=/custom
     #  - hapi.fhir.app_content_path=/apps
