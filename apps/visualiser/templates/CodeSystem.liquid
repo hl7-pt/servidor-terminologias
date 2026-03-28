@@ -342,7 +342,7 @@
               {% for prop in element.property %}
               <span class="cs-prop-tag">
                 <strong>{{ prop.code }}:</strong>
-                <span>{{ prop.valueDecimal }}{{ prop.valueString }}{{ prop.valueCode }}{{ prop.valueBoolean }}</span>
+                <span>{% if prop.valueDecimal != nil %}{{ prop.valueDecimal }}{% elsif prop.valueString %}{{ prop.valueString }}{% elsif prop.valueCode %}{{ prop.valueCode }}{% elsif prop.valueBoolean != nil %}{{ prop.valueBoolean }}{% elsif prop.valueInteger != nil %}{{ prop.valueInteger }}{% else %}—{% endif %}</span>
               </span>
               {% endfor %}
             </div>
