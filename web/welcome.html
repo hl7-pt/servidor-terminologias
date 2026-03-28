@@ -13,6 +13,7 @@
         background: linear-gradient(135deg, #0c364a 0%, #1a5a7a 100%);
         border-radius: 12px;
         color: white;
+        box-shadow: 0 4px 20px rgba(12, 54, 74, 0.3);
     }
     
     .welcome-header h2 {
@@ -49,7 +50,7 @@
     .apps-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
+        gap: 1.5rem;
         margin-bottom: 30px;
     }
     
@@ -57,64 +58,145 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 30px 25px;
+        padding: 2rem 1.5rem;
         background: white;
-        border-radius: 12px;
+        border-radius: 16px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         text-decoration: none;
         transition: all 0.3s ease;
-        border: 1px solid #e8e8e8;
+        border: 2px solid transparent;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .app-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .app-card-cs::before {
+        background: linear-gradient(135deg, #0c364a 0%, #1a5a7a 100%);
+    }
+    
+    .app-card-cm::before {
+        background: linear-gradient(135deg, #144a0c 0%, #1f6f14 100%);
+    }
+    
+    .app-card-reg::before {
+        background: linear-gradient(135deg, #4a0c36 0%, #6f145a 100%);
     }
     
     .app-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        transform: translateY(-8px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
         text-decoration: none;
     }
     
+    .app-card:hover::before {
+        opacity: 1;
+    }
+    
+    .app-card-cs:hover {
+        border-color: #0c364a;
+    }
+    
+    .app-card-cm:hover {
+        border-color: #144a0c;
+    }
+    
+    .app-card-reg:hover {
+        border-color: #4a0c36;
+    }
+    
     .app-icon {
-        width: 70px;
-        height: 70px;
-        border-radius: 16px;
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 18px;
-        font-size: 32px;
+        margin-bottom: 20px;
+        font-size: 36px;
+        transition: transform 0.3s ease;
+    }
+    
+    .app-card:hover .app-icon {
+        transform: scale(1.1);
     }
     
     .app-card-cs .app-icon {
         background: linear-gradient(135deg, #0c364a 0%, #1a5a7a 100%);
         color: white;
+        box-shadow: 0 4px 15px rgba(12, 54, 74, 0.3);
     }
     
     .app-card-cm .app-icon {
         background: linear-gradient(135deg, #144a0c 0%, #1f6f14 100%);
         color: white;
+        box-shadow: 0 4px 15px rgba(20, 74, 12, 0.3);
     }
     
     .app-card-reg .app-icon {
         background: linear-gradient(135deg, #4a0c36 0%, #6f145a 100%);
         color: white;
+        box-shadow: 0 4px 15px rgba(74, 12, 54, 0.3);
     }
     
     .app-card-title {
         font-size: 18px;
         font-weight: 600;
         color: #333;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         text-align: center;
+        transition: color 0.3s ease;
     }
     
     .app-card-description {
         font-size: 14px;
         color: #666;
         text-align: center;
-        line-height: 1.5;
+        line-height: 1.6;
     }
     
-    .app-card:hover .app-card-title {
+    .app-card-cs:hover .app-card-title {
         color: #0c364a;
+    }
+    
+    .app-card-cm:hover .app-card-title {
+        color: #144a0c;
+    }
+    
+    .app-card-reg:hover .app-card-title {
+        color: #4a0c36;
+    }
+    
+    .app-card-arrow {
+        margin-top: 15px;
+        font-size: 20px;
+        color: #ccc;
+        transition: all 0.3s ease;
+    }
+    
+    .app-card:hover .app-card-arrow {
+        transform: translateX(5px);
+    }
+    
+    .app-card-cs:hover .app-card-arrow {
+        color: #0c364a;
+    }
+    
+    .app-card-cm:hover .app-card-arrow {
+        color: #144a0c;
+    }
+    
+    .app-card-reg:hover .app-card-arrow {
+        color: #4a0c36;
     }
 </style>
 
@@ -132,18 +214,21 @@
             <div class="app-icon">📚</div>
             <div class="app-card-title">Visualizador de Terminologias</div>
             <div class="app-card-description">Explore e pesquise os CodeSystems disponíveis no servidor</div>
+            <div class="app-card-arrow">→</div>
         </a>
         
         <a href="web/apps/cmapbrowser.html" class="app-card app-card-cm">
             <div class="app-icon">🔗</div>
             <div class="app-card-title">Visualizador de Mapeamentos</div>
             <div class="app-card-description">Visualize os ConceptMaps e mapeamentos entre terminologias</div>
+            <div class="app-card-arrow">→</div>
         </a>
         
         <a href="web/apps/csregister.html" class="app-card app-card-reg">
             <div class="app-icon">✏️</div>
             <div class="app-card-title">Registo de CodeSystem</div>
             <div class="app-card-description">Crie e registe novos CodeSystems no servidor</div>
+            <div class="app-card-arrow">→</div>
         </a>
     </div>
 </div>
