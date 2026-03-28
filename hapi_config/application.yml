@@ -97,11 +97,12 @@ hapi:
     #    cql_enabled: true
     ips_enabled: false
  #   advanced_lucene_indexing: false
-    # HAPI strips the trailing slash, then passes the path to FileUrlResource
-    # which prepends "file:" to create the resource URL.
-    # Use trailing slash so after stripping we get /custom -> file:/custom
-    custom_content_path: /custom/
-    app_content_path: /apps/
+    # HAPI's CustomContentFilesConfigurer strips ONE trailing slash from paths,
+    # then passes them to FileUrlResource. Spring requires directory resource
+    # locations to end with '/'. Use double slashes so one remains after stripping:
+    # /custom// -> (stripped) /custom/ -> file:/custom/ ✓
+    custom_content_path: /custom//
+    app_content_path: /apps//
 
     #  - hapi.fhir.custom_content_path=/custom
     #  - hapi.fhir.app_content_path=/apps
