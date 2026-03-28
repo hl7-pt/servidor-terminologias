@@ -97,8 +97,11 @@ hapi:
     #    cql_enabled: true
     ips_enabled: false
  #   advanced_lucene_indexing: false
-    custom_content_path: /custom
-    app_content_path: /apps
+    # Note: Using double trailing slashes (//) as workaround for HAPI bug that strips
+    # single trailing slash, but Spring's FileUrlResource needs trailing slash for
+    # correct relative path resolution in addResourceLocations()
+    custom_content_path: /custom//
+    app_content_path: /apps//
 
     #  - hapi.fhir.custom_content_path=/custom
     #  - hapi.fhir.app_content_path=/apps
