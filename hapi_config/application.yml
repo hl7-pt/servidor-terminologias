@@ -97,12 +97,16 @@ hapi:
     #    cql_enabled: true
     ips_enabled: false
  #   advanced_lucene_indexing: false
-    # HAPI's CustomContentFilesConfigurer strips ONE trailing slash from paths,
-    # then passes them to FileUrlResource. Spring requires directory resource
-    # locations to end with '/'. Use double slashes so one remains after stripping:
-    # /custom// -> (stripped) /custom/ -> file:/custom/ ✓
-    custom_content_path: /custom//
-    app_content_path: /apps//
+    # NOTE: HAPI's CustomContentFilesConfigurer has a bug where it strips trailing
+    # slashes but Spring requires directory resource locations to end with '/'.
+    # This causes: "Resource location does not end with slash: file:/custom"
+    # 
+    # WORKAROUND: Disable these settings. Static files in ./web and ./apps folders
+    # should be served via nginx directly or a separate static file server.
+    # See: https://github.com/hapifhir/hapi-fhir-jpaserver-starter/issues/638
+    #
+    # custom_content_path: /custom
+    # app_content_path: /apps
 
     #  - hapi.fhir.custom_content_path=/custom
     #  - hapi.fhir.app_content_path=/apps
