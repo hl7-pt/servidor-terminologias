@@ -125,7 +125,7 @@ async function processData(data, baseurl) {
       try {
 
         current_row.push(
-          '<a target="_blank" href="' + baseurl + '/CodeSystem/' + data[i].id + '">Ver</a> <br>')
+          '<a href="' + baseurl + '/CodeSystem/' + data[i].id + '">Ver</a> <br>')
         //  current_row.push(data[i].id);
       } catch (error) {
         current_row.push(error);
@@ -134,7 +134,7 @@ async function processData(data, baseurl) {
       try {
 
         current_row.push(
-          '<a target="_blank" href="./visualiser/viz-index.html?url=' + baseurl + '/CodeSystem/' + data[i].id + '">Ver</a> <br>')
+          '<a href="./visualiser/viz-index.html?url=' + baseurl + '/CodeSystem/' + data[i].id + '">Ver</a> <br>')
       } catch (error) {
         current_row.push(error);
       }
@@ -184,7 +184,7 @@ async function processData(data, baseurl) {
 
       try {
         current_row.push(
-          '<a target="_blank" href="./visualiser/viz-index.html?url=' + baseurl + '/ConceptMap/' + data[i].id + '">Ver</a> <br>')
+          '<a href="./visualiser/viz-index.html?url=' + baseurl + '/ConceptMap/' + data[i].id + '">Ver</a> <br>')
       } catch (error) {
         current_row.push(error);
       }
