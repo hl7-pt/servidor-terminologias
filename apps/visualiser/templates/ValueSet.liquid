@@ -1,0 +1,427 @@
+{% comment %}GET the ValueSet resource from the Bundle{% endcomment %}
+{% assign mpdr = entry | where: "resource.resourceType", "ValueSet" | first %}
+{% assign mpd = mpdr.resource %}
+
+<style>
+  .vs-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .vs-header-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-bottom: 25px;
+  }
+
+  .vs-header-banner {
+    background: linear-gradient(135deg, #0c4a4a 0%, #147a7a 100%);
+    color: white;
+    padding: 25px 30px;
+  }
+
+  .vs-header-banner h2 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .vs-header-banner .vs-description {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .vs-header-body {
+    padding: 20px 30px;
+  }
+
+  .vs-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .vs-meta-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .vs-meta-label {
+    font-size: 12px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .vs-meta-value {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .vs-scope-info {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+
+  .vs-scope-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .vs-system-box {
+    flex: 1;
+    min-width: 200px;
+    background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+    border: 1px solid #80deea;
+    border-radius: 8px;
+    padding: 15px;
+  }
+
+  .vs-system-label {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .vs-system-value {
+    font-size: 13px;
+    color: #333;
+    word-break: break-all;
+    font-family: 'Consolas', 'Monaco', monospace;
+  }
+
+  .vs-table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    overflow: hidden;
+  }
+
+  .vs-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .vs-table-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .vs-concept-count {
+    background: #0c4a4a;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .vs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .vs-table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    color: #495057;
+    font-weight: 600;
+    padding: 12px 15px;
+    text-align: left;
+  }
+
+  .vs-table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+
+  .vs-table tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+
+  .vs-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .vs-code {
+    font-family: 'Consolas', 'Monaco', monospace;
+    background: #e0f7fa;
+    color: #0c4a4a;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+  }
+
+  .vs-system-badge {
+    background: #f0f4f8;
+    border: 1px solid #cde5ef;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 12px;
+    word-break: break-all;
+  }
+
+  .vs-flag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .vs-flag.abstract {
+    background: #fff3e0;
+    color: #ef6c00;
+    border: 1px solid #ffcc80;
+  }
+
+  .vs-flag.inactive {
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+  }
+
+  .vs-no-data {
+    color: #999;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .vs-container {
+      padding: 10px;
+    }
+
+    .vs-header-banner {
+      padding: 20px;
+    }
+
+    .vs-header-body {
+      padding: 15px 20px;
+    }
+
+    .vs-meta-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .vs-scope-row {
+      flex-direction: column;
+    }
+
+    .vs-table-container {
+      padding: 15px;
+      overflow-x: auto;
+    }
+
+    .vs-table {
+      min-width: 600px;
+    }
+  }
+</style>
+
+<div class="vs-container">
+  <!-- Header Card -->
+  <div class="vs-header-card">
+    <div class="vs-header-banner">
+      <h2>🔮 {{ mpd.title | default: mpd.name | default: mpd.id }}</h2>
+      {% if mpd.description %}
+        <p class="vs-description">{{ mpd.description }}</p>
+      {% endif %}
+    </div>
+    <div class="vs-header-body">
+      <div class="vs-meta-grid">
+        <div class="vs-meta-item">
+          <span class="vs-meta-label">Identificador</span>
+          <span class="vs-meta-value">{{ mpd.id }}</span>
+        </div>
+        <div class="vs-meta-item">
+          <span class="vs-meta-label">Versão</span>
+          <span class="vs-meta-value">{{ mpd.version | default: "N/A" }}</span>
+        </div>
+        <div class="vs-meta-item">
+          <span class="vs-meta-label">Estado</span>
+          <span class="vs-meta-value">{{ mpd.status | default: "N/A" }}</span>
+        </div>
+        {% if mpd.publisher %}
+        <div class="vs-meta-item">
+          <span class="vs-meta-label">Publicador</span>
+          <span class="vs-meta-value">{{ mpd.publisher }}</span>
+        </div>
+        {% endif %}
+        {% if mpd.url %}
+        <div class="vs-meta-item">
+          <span class="vs-meta-label">URL Canónico</span>
+          <span class="vs-meta-value" style="font-size: 12px; word-break: break-all;">{{ mpd.url }}</span>
+        </div>
+        {% endif %}
+      </div>
+
+      {% if mpd.expansion and mpd.expansion.parameter %}
+      <div class="vs-scope-info">
+        <div class="vs-scope-row">
+          {% for param in mpd.expansion.parameter %}
+          <div class="vs-system-box">
+            <div class="vs-system-label">
+              <span>⚙️</span> {{ param.name }}
+            </div>
+            <div class="vs-system-value">{{ param.valueString | default: param.valueBoolean | default: param.valueInteger | default: param.valueDecimal | default: param.valueUri | default: param.valueCode | default: "N/A" }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Expansion Table -->
+  {% if mpd.expansion and mpd.expansion.contains %}
+  <div class="vs-table-container">
+    <div class="vs-table-header">
+      <h3 class="vs-table-title">
+        <span>📋</span> Expansão do ValueSet
+      </h3>
+      <span class="vs-concept-count">{{ mpd.expansion.contains.size }} conceitos</span>
+    </div>
+
+    <table class="vs-table">
+      <thead>
+        <tr>
+          <th style="width: 20%;">Código</th>
+          <th style="width: 25%;">Título</th>
+          <th style="width: 40%;">Sistema</th>
+          <th style="width: 15%;">Flags</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for concept in mpd.expansion.contains %}
+        <tr>
+          <td><span class="vs-code">{{ concept.code }}</span></td>
+          <td>{{ concept.display | default: "-" }}</td>
+          <td>
+            {% if concept.system %}
+            <span class="vs-system-badge">{{ concept.system }}</span>
+            {% else %}
+            <span class="vs-no-data">—</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if concept.abstract == true %}
+            <span class="vs-flag abstract">Abstrato</span>
+            {% endif %}
+            {% if concept.inactive == true %}
+            <span class="vs-flag inactive">Inativo</span>
+            {% endif %}
+            {% if concept.abstract != true and concept.inactive != true %}
+            <span class="vs-no-data">—</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% elsif mpd.compose %}
+  <div class="vs-table-container">
+    <div class="vs-table-header">
+      <h3 class="vs-table-title">
+        <span>📋</span> Composição do ValueSet
+      </h3>
+    </div>
+
+    {% if mpd.compose.include %}
+    <h4 style="color: #333; margin-bottom: 10px;">Inclui</h4>
+    <table class="vs-table">
+      <thead>
+        <tr>
+          <th style="width: 50%;">Sistema</th>
+          <th style="width: 30%;">Versão</th>
+          <th style="width: 20%;">Conceitos</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for inc in mpd.compose.include %}
+        <tr>
+          <td><span class="vs-system-badge">{{ inc.system | default: "—" }}</span></td>
+          <td>{{ inc.version | default: "—" }}</td>
+          <td>
+            {% if inc.concept %}
+              {{ inc.concept.size }} conceitos
+            {% elsif inc.filter %}
+              {{ inc.filter.size }} filtros
+            {% else %}
+              Todos os conceitos
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+
+    {% if mpd.compose.exclude %}
+    <h4 style="color: #c62828; margin-top: 20px; margin-bottom: 10px;">Exclui</h4>
+    <table class="vs-table">
+      <thead>
+        <tr>
+          <th style="width: 50%;">Sistema</th>
+          <th style="width: 30%;">Versão</th>
+          <th style="width: 20%;">Conceitos</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for exc in mpd.compose.exclude %}
+        <tr>
+          <td><span class="vs-system-badge">{{ exc.system | default: "—" }}</span></td>
+          <td>{{ exc.version | default: "—" }}</td>
+          <td>
+            {% if exc.concept %}
+              {{ exc.concept.size }} conceitos
+            {% else %}
+              Todos os conceitos
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+  {% else %}
+  <div class="vs-table-container" style="text-align: center; padding: 40px;">
+    <p style="color: #666; font-size: 16px;">Este ValueSet não tem expansão nem definição de composição disponíveis.</p>
+    <p style="color: #999; font-size: 14px;">Tente aceder ao recurso com o parâmetro <code>?_expand</code> para obter a expansão.</p>
+  </div>
+  {% endif %}
+</div>

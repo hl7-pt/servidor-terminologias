@@ -49,19 +49,19 @@
     
     .apps-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
         margin-bottom: 30px;
     }
     
     .app-card {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        padding: 2rem 1.5rem;
+        gap: 14px;
+        padding: 16px 18px;
         background: white;
-        border-radius: 16px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
         text-decoration: none;
         transition: all 0.3s ease;
         border: 2px solid transparent;
@@ -72,10 +72,10 @@
     .app-card::before {
         content: '';
         position: absolute;
-        top: 0;
         left: 0;
-        right: 0;
-        height: 4px;
+        top: 0;
+        bottom: 0;
+        width: 4px;
         opacity: 0;
         transition: opacity 0.3s ease;
     }
@@ -92,9 +92,13 @@
         background: linear-gradient(135deg, #4a0c36 0%, #6f145a 100%);
     }
     
+    .app-card-vs::before {
+        background: linear-gradient(135deg, #0c4a4a 0%, #147a7a 100%);
+    }
+    
     .app-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
         text-decoration: none;
     }
     
@@ -114,54 +118,68 @@
         border-color: #4a0c36;
     }
     
+    .app-card-vs:hover {
+        border-color: #0c4a4a;
+    }
+    
     .app-icon {
-        width: 80px;
-        height: 80px;
-        border-radius: 20px;
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 20px;
-        font-size: 36px;
+        font-size: 22px;
+        flex-shrink: 0;
         transition: transform 0.3s ease;
     }
     
     .app-card:hover .app-icon {
-        transform: scale(1.1);
+        transform: scale(1.08);
     }
     
     .app-card-cs .app-icon {
         background: linear-gradient(135deg, #0c364a 0%, #1a5a7a 100%);
         color: white;
-        box-shadow: 0 4px 15px rgba(12, 54, 74, 0.3);
+        box-shadow: 0 3px 8px rgba(12, 54, 74, 0.3);
     }
     
     .app-card-cm .app-icon {
         background: linear-gradient(135deg, #144a0c 0%, #1f6f14 100%);
         color: white;
-        box-shadow: 0 4px 15px rgba(20, 74, 12, 0.3);
+        box-shadow: 0 3px 8px rgba(20, 74, 12, 0.3);
     }
     
     .app-card-reg .app-icon {
         background: linear-gradient(135deg, #4a0c36 0%, #6f145a 100%);
         color: white;
-        box-shadow: 0 4px 15px rgba(74, 12, 54, 0.3);
+        box-shadow: 0 3px 8px rgba(74, 12, 54, 0.3);
+    }
+    
+    .app-card-vs .app-icon {
+        background: linear-gradient(135deg, #0c4a4a 0%, #147a7a 100%);
+        color: white;
+        box-shadow: 0 3px 8px rgba(12, 74, 74, 0.3);
+    }
+    
+    .app-card-text {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
     }
     
     .app-card-title {
-        font-size: 18px;
+        font-size: 15px;
         font-weight: 600;
         color: #333;
-        margin-bottom: 12px;
-        text-align: center;
+        margin-bottom: 3px;
         transition: color 0.3s ease;
     }
     
     .app-card-description {
-        font-size: 14px;
-        color: #666;
-        text-align: center;
-        line-height: 1.6;
+        font-size: 13px;
+        color: #888;
+        line-height: 1.4;
     }
     
     .app-card-cs:hover .app-card-title {
@@ -176,15 +194,20 @@
         color: #4a0c36;
     }
     
+    .app-card-vs:hover .app-card-title {
+        color: #0c4a4a;
+    }
+    
     .app-card-arrow {
-        margin-top: 15px;
-        font-size: 20px;
+        margin-left: auto;
+        font-size: 16px;
         color: #ccc;
+        flex-shrink: 0;
         transition: all 0.3s ease;
     }
     
     .app-card:hover .app-card-arrow {
-        transform: translateX(5px);
+        transform: translateX(3px);
     }
     
     .app-card-cs:hover .app-card-arrow {
@@ -197,6 +220,16 @@
     
     .app-card-reg:hover .app-card-arrow {
         color: #4a0c36;
+    }
+    
+    .app-card-vs:hover .app-card-arrow {
+        color: #0c4a4a;
+    }
+
+    @media (max-width: 768px) {
+        .apps-grid {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
 
@@ -212,22 +245,37 @@
     <div class="apps-grid">
         <a href="web/apps/csbrowser.html" class="app-card app-card-cs">
             <div class="app-icon">📚</div>
-            <div class="app-card-title">Visualizador de Terminologias</div>
-            <div class="app-card-description">Explore e pesquise os CodeSystems disponíveis no servidor</div>
+            <div class="app-card-text">
+                <div class="app-card-title">Terminologias</div>
+                <div class="app-card-description">CodeSystems disponíveis</div>
+            </div>
+            <div class="app-card-arrow">→</div>
+        </a>
+        
+        <a href="web/apps/vsbrowser.html" class="app-card app-card-vs">
+            <div class="app-icon">🔮</div>
+            <div class="app-card-text">
+                <div class="app-card-title">ValueSets</div>
+                <div class="app-card-description">Conjuntos de valores</div>
+            </div>
             <div class="app-card-arrow">→</div>
         </a>
         
         <a href="web/apps/cmapbrowser.html" class="app-card app-card-cm">
             <div class="app-icon">🔗</div>
-            <div class="app-card-title">Visualizador de Mapeamentos</div>
-            <div class="app-card-description">Visualize os ConceptMaps e mapeamentos entre terminologias</div>
+            <div class="app-card-text">
+                <div class="app-card-title">Mapeamentos</div>
+                <div class="app-card-description">ConceptMaps entre terminologias</div>
+            </div>
             <div class="app-card-arrow">→</div>
         </a>
         
         <a href="web/apps/csregister.html" class="app-card app-card-reg">
             <div class="app-icon">✏️</div>
-            <div class="app-card-title">Registo de CodeSystem</div>
-            <div class="app-card-description">Crie e registe novos CodeSystems no servidor</div>
+            <div class="app-card-text">
+                <div class="app-card-title">Registo</div>
+                <div class="app-card-description">Criar novos CodeSystems</div>
+            </div>
             <div class="app-card-arrow">→</div>
         </a>
     </div>
