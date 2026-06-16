@@ -355,7 +355,7 @@
           <td><span class="vs-code">{{ concept.code }}</span></td>
           <td>{{ concept.display | default: "-" }}</td>
           <td>
-            {% if concept.designation %}
+            {% if concept.designation and concept.designation.size > 0 %}
             <div class="vs-designation-list">
               {% for designation in concept.designation %}
               <div class="vs-designation-item">
@@ -428,7 +428,7 @@
             <td><span class="vs-code">{{ concept.code }}</span></td>
             <td>{{ concept.display | default: "-" }}</td>
             <td>
-              {% if concept.designation %}
+              {% if concept.designation and concept.designation.size > 0 %}
               <div class="vs-designation-list">
                 {% for designation in concept.designation %}
                 <div class="vs-designation-item">
