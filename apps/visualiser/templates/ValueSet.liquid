@@ -304,6 +304,22 @@
           <span class="vs-meta-value">{{ mpd.publisher }}</span>
         </div>
         {% endif %}
+        {% assign author_names = "" %}
+        {% for author in mpd.author %}
+          {% if author.name %}
+            {% if author_names == "" %}
+              {% assign author_names = author.name %}
+            {% else %}
+              {% assign author_names = author_names | append: ", " | append: author.name %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {% if author_names != "" %}
+        <div class="vs-meta-item">
+          <span class="vs-meta-label">Autor</span>
+          <span class="vs-meta-value">{{ author_names }}</span>
+        </div>
+        {% endif %}
         {% if mpd.url %}
         <div class="vs-meta-item">
           <span class="vs-meta-label">URL Canónico</span>
