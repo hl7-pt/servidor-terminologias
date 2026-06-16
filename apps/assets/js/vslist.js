@@ -52,9 +52,13 @@ async function getDataToProcess(url, isBundleOfBundles) {
   const response = await fetch(url);
   const data = await response.json();
 
+  if (!data.entry || data.entry.length === 0) {
+    return [];
+  }
+
   if (isBundleOfBundles) {
     return data.entry
-      .map(bundle => bundle.resource.entry)
+      .map(bundle => bundle.resource.entry || [])
       .flat()
       .map(entry => entry.resource);
   } else {
