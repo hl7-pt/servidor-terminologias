@@ -362,32 +362,53 @@
 
     {% if mpd.compose.include %}
     <h4 style="color: #333; margin-bottom: 10px;">Inclui</h4>
-    <table class="vs-table">
-      <thead>
-        <tr>
-          <th style="width: 50%;">Sistema</th>
-          <th style="width: 30%;">Versão</th>
-          <th style="width: 20%;">Conceitos</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for inc in mpd.compose.include %}
-        <tr>
-          <td><span class="vs-system-badge">{{ inc.system | default: "—" }}</span></td>
-          <td>{{ inc.version | default: "—" }}</td>
-          <td>
-            {% if inc.concept %}
-              {{ inc.concept.size }} conceitos
-            {% elsif inc.filter %}
-              {{ inc.filter.size }} filtros
-            {% else %}
-              Todos os conceitos
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    {% for inc in mpd.compose.include %}
+    <div style="margin-bottom: 20px;">
+      <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 10px;">
+        <div><span class="vs-meta-label">Sistema</span><br><span class="vs-system-badge">{{ inc.system | default: "—" }}</span></div>
+        <div><span class="vs-meta-label">Versão</span><br><span class="vs-meta-value">{{ inc.version | default: "—" }}</span></div>
+      </div>
+      {% if inc.concept %}
+      <table class="vs-table">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Código</th>
+            <th style="width: 75%;">Título</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for concept in inc.concept %}
+          <tr>
+            <td><span class="vs-code">{{ concept.code }}</span></td>
+            <td>{{ concept.display | default: "-" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% elsif inc.filter %}
+      <table class="vs-table">
+        <thead>
+          <tr>
+            <th style="width: 33%;">Propriedade</th>
+            <th style="width: 33%;">Operação</th>
+            <th style="width: 34%;">Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for f in inc.filter %}
+          <tr>
+            <td>{{ f.property | default: "—" }}</td>
+            <td>{{ f.op | default: "—" }}</td>
+            <td>{{ f.value | default: "—" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p style="color: #666; font-style: italic;">Todos os conceitos do sistema</p>
+      {% endif %}
+    </div>
+    {% endfor %}
     {% endif %}
 
     {% if mpd.compose.exclude %}
