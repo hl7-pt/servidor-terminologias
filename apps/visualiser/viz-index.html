@@ -103,7 +103,15 @@
       $(document).ready(function() {
         // Load the header
         $("#header-container").load("../header.html", function() {
-          // No specific page to mark as active in visualizer
+          $("#header-container a[href]").each(function() {
+            const href = $(this).attr("href");
+
+            if (!href || /^(?:[a-z]+:|\/|#)/i.test(href)) {
+              return;
+            }
+
+            $(this).attr("href", "../" + href);
+          });
         });
       });
 
