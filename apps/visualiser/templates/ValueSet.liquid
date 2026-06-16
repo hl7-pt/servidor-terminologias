@@ -193,6 +193,30 @@
     word-break: break-all;
   }
 
+  .vs-designation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .vs-designation-item {
+    padding: 8px 10px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+  }
+
+  .vs-designation-value {
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .vs-designation-meta {
+    color: #666;
+    font-size: 12px;
+  }
+
   .vs-flag {
     display: inline-flex;
     align-items: center;
@@ -318,10 +342,11 @@
     <table class="vs-table">
       <thead>
         <tr>
-          <th style="width: 20%;">Código</th>
-          <th style="width: 25%;">Título</th>
-          <th style="width: 40%;">Sistema</th>
-          <th style="width: 15%;">Flags</th>
+          <th style="width: 15%;">Código</th>
+          <th style="width: 20%;">Título</th>
+          <th style="width: 30%;">Sinónimos / traduções</th>
+          <th style="width: 25%;">Sistema</th>
+          <th style="width: 10%;">Flags</th>
         </tr>
       </thead>
       <tbody>
@@ -329,6 +354,26 @@
         <tr>
           <td><span class="vs-code">{{ concept.code }}</span></td>
           <td>{{ concept.display | default: "-" }}</td>
+          <td>
+            {% if concept.designation %}
+            <div class="vs-designation-list">
+              {% for designation in concept.designation %}
+              <div class="vs-designation-item">
+                <div class="vs-designation-value">{{ designation.value | default: "-" }}</div>
+                {% if designation.language or designation.use %}
+                <div class="vs-designation-meta">
+                  {% if designation.language %}Idioma: {{ designation.language }}{% endif %}
+                  {% if designation.language and designation.use %} • {% endif %}
+                  {% if designation.use %}Tipo: {{ designation.use.display | default: designation.use.code | default: "designação" }}{% endif %}
+                </div>
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+            {% else %}
+            <span class="vs-no-data">—</span>
+            {% endif %}
+          </td>
           <td>
             {% if concept.system %}
             <span class="vs-system-badge">{{ concept.system }}</span>
@@ -372,8 +417,9 @@
       <table class="vs-table">
         <thead>
           <tr>
-            <th style="width: 25%;">Código</th>
-            <th style="width: 75%;">Título</th>
+            <th style="width: 20%;">Código</th>
+            <th style="width: 25%;">Título</th>
+            <th style="width: 55%;">Sinónimos / traduções</th>
           </tr>
         </thead>
         <tbody>
@@ -381,6 +427,26 @@
           <tr>
             <td><span class="vs-code">{{ concept.code }}</span></td>
             <td>{{ concept.display | default: "-" }}</td>
+            <td>
+              {% if concept.designation %}
+              <div class="vs-designation-list">
+                {% for designation in concept.designation %}
+                <div class="vs-designation-item">
+                  <div class="vs-designation-value">{{ designation.value | default: "-" }}</div>
+                  {% if designation.language or designation.use %}
+                  <div class="vs-designation-meta">
+                    {% if designation.language %}Idioma: {{ designation.language }}{% endif %}
+                    {% if designation.language and designation.use %} • {% endif %}
+                    {% if designation.use %}Tipo: {{ designation.use.display | default: designation.use.code | default: "designação" }}{% endif %}
+                  </div>
+                  {% endif %}
+                </div>
+                {% endfor %}
+              </div>
+              {% else %}
+              <span class="vs-no-data">—</span>
+              {% endif %}
+            </td>
           </tr>
           {% endfor %}
         </tbody>
