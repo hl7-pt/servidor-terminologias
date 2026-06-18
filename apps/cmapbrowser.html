@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Visualizador de Mapeamentos</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/styles.min.css">
-    <link rel="stylesheet" href="assets/css/prodlist.css">
     <link rel="stylesheet" href="assets/css/common.css">
 
     <script src="assets/js/jquery.min.js"></script>
@@ -27,7 +25,10 @@
         style="display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); text-align: center;">
         <div
             style="display: inline-block; position: relative; top: 50%; transform: translateY(-50%); background-color: white; padding: 20px; border-radius: 5px;">
-            <p>A processar...</p>
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">A carregar...</span>
+            </div>
+            <p class="mt-2">A processar...</p>
         </div>
     </div>
 
@@ -46,8 +47,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Descrição</th>
-                            <th>Total códigos</th>
+                            <th>Título</th>
+                            <th>Total mapeamentos</th>
                             <th>Visualizador</th>
                         </tr>
                     </thead>
@@ -57,8 +58,6 @@
         </div>
     </div>
 
-    <ul id="container" class="list-group"></ul>
-    
     <script>
         $(document).ready(function () {
             // Load the header
@@ -72,7 +71,7 @@
                 dom: 'frtlip',
                 pageLength: 100,
                 lengthMenu: [0, 5, 10, 20, 50, 100, 200, 500],
-                columns: [{ width: "10%" }, { width: "30%" }, { width: "4%" }, { width: "6%" }]
+                columns: [{ width: "15%" }, { width: "45%" }, { width: "15%" }, { width: "15%" }]
             });
         });
     </script>

@@ -1,6 +1,4 @@
-var dataTableInitialized = false;
-var t;
-var appBaseUrl = "";
+var t; // DataTable instance
 
 function initializeDataTable() {
   if ($.fn.dataTable.isDataTable('#prod-table')) {
@@ -25,7 +23,8 @@ function initializeDataTable() {
       entries: {
         _: 'registos',
         1: 'Registo'
-      }
+      },
+      zeroRecords: 'Nenhum ValueSet encontrado'
     }
   });
 }
@@ -68,7 +67,9 @@ async function getDataToProcess(url, isBundleOfBundles) {
 
 async function processData(data, baseurl) {
   var processingModal = document.getElementById('processingModal');
+  var progressIndicator = document.getElementById('progressIndicator');
   processingModal.style.display = 'block';
+
   var totalCount = data.length;
   console.log(totalCount);
   console.log(data);
@@ -81,60 +82,38 @@ async function processData(data, baseurl) {
 
       var current_row = [];
 
-      try {
-        current_row.push('<b>' + (resource.title || resource.name || resource.id) + '</b>');
-      } catch (error) {
-        current_row.push(error);
+      current_row.push('<b>' + (resource.title || resource.name || resource.id || '-') + '</b>');
+      current_row.push('<b>' + (resource.version || '-') + '</b>');
+      current_row.push(resource.description || '-');
+
+      if (resource.expansion && resource.expansion.total) {
+        current_row.push(resource.expansion.total);
+      } else if (resource.expansion && resource.expansion.contains) {
+        current_row.push(resource.expansion.contains.length);
+      } else if (resource.count != null) {
+        current_row.push(resource.count);
+      } else {
+        current_row.push('-');
       }
 
-      try {
-        current_row.push('<b>' + (resource.version || '-') + '</b>');
-      } catch (error) {
-        current_row.push(error);
-      }
-
-      try {
-        current_row.push(resource.description || '-');
-      } catch (error) {
-        current_row.push(error);
-      }
-
-      try {
-        if (resource.expansion && resource.expansion.total) {
-          current_row.push(resource.expansion.total);
-        } else if (resource.expansion && resource.expansion.contains) {
-          current_row.push(resource.expansion.contains.length);
-        } else if (resource.count) {
-          current_row.push(resource.count);
-        } else {
-          current_row.push('-');
-        }
-      } catch (error) {
-        current_row.push(error);
-      }
-
-      try {
-        current_row.push(
-          '<a href="' + baseurl + '/ValueSet/' + resource.id + '">Ver</a> <br>')
-      } catch (error) {
-        current_row.push(error);
-      }
-
-      try {
-        current_row.push(
-          '<a href="./visualiser/viz-index.html?url=' + baseurl + '/ValueSet/' + resource.id + '">Ver</a> <br>')
-      } catch (error) {
-        current_row.push(error);
-      }
+      current_row.push(
+        '<a href="' + baseurl + '/ValueSet/' + resource.id + '">Ver</a>');
+      current_row.push(
+        '<a href="./visualiser/viz-index.html?url=' + baseurl + '/ValueSet/' + resource.id + '">Ver</a>');
 
       t.row.add(current_row);
 
       console.log(current_row);
-      progressIndicator.innerText = 'A processar ValueSet ' + (i + 1) + ' de ' + totalCount + '...';
+      if (progressIndicator) {
+        progressIndicator.innerText = 'A processar ValueSet ' + (i + 1) + ' de ' + totalCount + '...';
+      }
     }
   }
 
   processingModal.style.display = 'none';
+  if (progressIndicator) {
+    progressIndicator.style.display = 'none';
+  }
 
   t.draw();
 }
